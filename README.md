@@ -35,6 +35,11 @@ WantedBy=multi-user.target
 ```
 
 ## 4. Настройка nginx
+Открыть файл `/etc/nginx/sites-available/default`:
+```
+sudo vim /etc/nginx/sites-available/default
+```
+и в двух строках, начинающихся с `listen`, убрать инструкцию `default_server`.
 Создать файл в папке `/etc/nginx/sites-available`:
 ``` 
 sudo vim /etc/nginx/sites-available/setserver
@@ -42,8 +47,8 @@ sudo vim /etc/nginx/sites-available/setserver
 и вставить в него, также заменив `имя_пользователя` на вашего пользователя:
 ```
 server {
-        listen 80;
-        listen [::]:80;
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
         root /var/www/html;
         index _;
@@ -76,6 +81,7 @@ sudo systemctl daemon-reload
 sudo service setserver start
 sudo systemctl enable setserver
 ```
+Для проверки статуса сервиса можно использовать команду `sudo service setserver status`.
 
 
 
