@@ -23,13 +23,43 @@ Description=Service setserver for game Set server.
 After=network.target
 
 [Service]
-User=_имя_пользователя_
-Group=*имя_пользователя*
-WorkingDirectory=/home/*имя_пользователя*/setserver
-ExecStart=/usr/bin/gunicorn --workers 1 --bind unix:/home/*имя_пользователя*/setserver/setserver.sock run:app
+User=имя_пользователя
+Group=имя_пользователя
+WorkingDirectory=/home/имя_пользователя/setserver
+ExecStart=/usr/bin/gunicorn --workers 1 --bind unix:/home/имя_пользователя/setserver/setserver.sock run:app
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 ## Настройка nginx
+Создать файл в папке `/etc/nginx/sites-available`:
+` sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/setserver `
+и вставить в него, также заменив `имя_пользователя` на вашего пользователя:
+```
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/html;
+        index _;
+        server_name _;
+
+        location / {
+                proxy_pass http://unix:/home/имя_пользователя/setserver/setserver.sock;
+        }
+}
+```
+Создать символическую ссылку на этот созданный файл в папке `/etc/nginx/sites-enabled`:
+` sudo ln -s /etc/nginx/sites-available/setserver /etc/nginx/sites-enabled/ `
+Открыть конфигурационный файл:
+` sudo vim /etc/nginx/nginx.conf `
+и в нём поменять в первой строке `user www-data;` на `user имя_пользователя;`.
+
+
+
+
+
+
+
+
