@@ -6,14 +6,14 @@ sudo apt install python3 python3-pip nginx gunicorn
 pip install flask
 ```
 
-## Клонирование git-репозитория
+## 2. Клонирование git-репозитория
 В домашней директории клонировать проект:
 ```
 cd
 git clone https://github.com/PUTENCHIK/setserver
 ```
 
-## Создание сервиса для проекта
+## 3. Создание сервиса для проекта
 Создать файл сервиса:
 ` sudo vim /etc/systemd/system/setserver.service `
 Вставить в созданный файл, соответственно заменив `имя_пользователя` на вашего пользователя:
