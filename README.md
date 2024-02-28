@@ -23,7 +23,7 @@ Description=Service setserver for game Set server.
 After=network.target
 
 [Service]
-User=*имя_пользователя*
+User=_имя_пользователя_
 Group=*имя_пользователя*
 WorkingDirectory=/home/*имя_пользователя*/setserver
 ExecStart=/usr/bin/gunicorn --workers 1 --bind unix:/home/*имя_пользователя*/setserver/setserver.sock run:app
