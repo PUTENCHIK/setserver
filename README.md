@@ -7,9 +7,29 @@ pip install flask
 ```
 
 ## Клонирование git-репозитория
-В домашней директории создать папку setserver, и в ней клонировать проект:
+В домашней директории клонировать проект:
 ```
-mkdir setserver
-cd setserver
-git clone https://github.com/PUTENCHIK/setserver.git
+cd
+git clone https://github.com/PUTENCHIK/setserver
 ```
+
+## Создание сервиса для проекта
+Создать файл сервиса:
+` sudo vim /etc/systemd/system/setserver.service `
+Вставить в созданный файл, соответственно заменив `имя_пользователя` на вашего пользователя:
+```
+[Unit]
+Description=Service setserver for game Set server.
+After=network.target
+
+[Service]
+User=имя_пользователя
+Group=имя_пользователя
+WorkingDirectory=/home/имя_пользователя/setserver
+ExecStart=/usr/bin/gunicorn --workers 1 --bind unix:/home/имя_пользователя/setserver/setserver.sock run:app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## Настройка nginx
