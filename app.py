@@ -132,6 +132,3 @@ def leave_game():
         return Response.exception(ex)
     except KeyError as er:
         return Response.key_error(er)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
