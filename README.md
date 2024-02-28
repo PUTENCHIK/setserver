@@ -34,10 +34,10 @@ ExecStart=/usr/bin/gunicorn --workers 1 --bind unix:/home/имя_пользов�
 WantedBy=multi-user.target
 ```
 
-## Настройка nginx
+## 4. Настройка nginx
 Создать файл в папке `/etc/nginx/sites-available`:
 ``` 
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/setserver
+sudo vim /etc/nginx/sites-available/setserver
 ```
 и вставить в него, также заменив `имя_пользователя` на вашего пользователя:
 ```
@@ -63,6 +63,20 @@ sudo ln -s /etc/nginx/sites-available/setserver /etc/nginx/sites-enabled/
 sudo vim /etc/nginx/nginx.conf
 ```
 и в нём поменять в первой строке `user www-data;` на `user имя_пользователя;`.
+
+## 5. Проверка изменений
+```
+sudo service nginx configtest
+sudo service nginx reload
+```
+При возникновении ошибок необходимо проверить файл `/etc/nginx/sites-available/setserver` на соответствие с шаблоном выше или просмотреть лог ошибок при помощи команды `journalctl -xeu nginx.service`.
+Далее обновить созданный сервис и запустить его:
+```
+sudo systemctl daemon-reload
+sudo service setserver start
+sudo systemctl enable setserver
+```
+
 
 
 
