@@ -75,6 +75,7 @@ sudo service nginx configtest
 sudo service nginx reload
 ```
 При возникновении ошибок необходимо проверить файл `/etc/nginx/sites-available/setserver` на соответствие с шаблоном выше или просмотреть лог ошибок при помощи команды `journalctl -xeu nginx.service`.
+
 Далее обновить созданный сервис и запустить его:
 ```
 sudo systemctl daemon-reload
