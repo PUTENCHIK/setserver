@@ -15,7 +15,9 @@ git clone https://github.com/PUTENCHIK/setserver
 
 ## 3. Создание сервиса для проекта
 Создать файл сервиса:
-``` sudo vim /etc/systemd/system/setserver.service ```
+``` 
+sudo vim /etc/systemd/system/setserver.service
+```
 Вставить в созданный файл, соответственно заменив `имя_пользователя` на вашего пользователя:
 ```
 [Unit]
@@ -34,7 +36,9 @@ WantedBy=multi-user.target
 
 ## Настройка nginx
 Создать файл в папке `/etc/nginx/sites-available`:
-``` sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/setserver ```
+``` 
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/setserver
+```
 и вставить в него, также заменив `имя_пользователя` на вашего пользователя:
 ```
 server {
@@ -51,9 +55,13 @@ server {
 }
 ```
 Создать символическую ссылку на этот созданный файл в папке `/etc/nginx/sites-enabled`:
-``` sudo ln -s /etc/nginx/sites-available/setserver /etc/nginx/sites-enabled/ ```
+```
+sudo ln -s /etc/nginx/sites-available/setserver /etc/nginx/sites-enabled/
+```
 Открыть конфигурационный файл:
-``` sudo vim /etc/nginx/nginx.conf ```
+```
+sudo vim /etc/nginx/nginx.conf
+```
 и в нём поменять в первой строке `user www-data;` на `user имя_пользователя;`.
 
 
